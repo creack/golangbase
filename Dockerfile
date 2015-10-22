@@ -13,10 +13,3 @@ RUN        go install -a std
 RUN        apt-get update && apt-get install -y jq
 
 MAINTAINER Guillaume J. Charmes <guillaume@charmes.net>
-
-ENV        ONBUILD_DIR $GOPATH/src/app
-WORKDIR    $ONBUILD_DIR
-
-ONBUILD    ADD Godeps/ $ONBUILD_DIR/Godeps
-ONBUILD    RUN if [ -f Godeps/Godeps.json ]; then for pkg in `cat Godeps/Godeps.json | jq -r '.Deps[].ImportPath'`; do godep go get $pkg && godep go install -ldflags -d $pkg; done; fi
-ONBUILD    ADD .       $ONBUILD_DIR
