@@ -1,4 +1,4 @@
-FROM       golang:1.5
+FROM       golang:1.6
 
 # Install Godep, golint and goimports.
 RUN        go get github.com/tools/godep
